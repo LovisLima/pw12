@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <h1>Detalhe do cliente</h1>
+        <input type="number" id="codigo" />
+        <button id="btn1" onclick="pesquisar();">Pesquisar</button>
+        <br/>
+        <div id="foto"></div>
+        nome: <div id="nome"></div><br/>
+        email: <div id="email"></div><br/>
+        senha:<div id="senha"></div><br/>
+
+    </body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script lang="javascript">
+function pesquisar(){
+    var aux = codigo.value;
+    $.ajax({
+        url: "http://localhost:8081/cliente/"+ aux,
+        type: "get"
+    })
+    .done(function(obj){
+        console.log(obj);
+        nome.innerHTML = obj[0].nome;
+        email.innerHTML = obj[0].email;        
+        senha.innerHTML = obj[0].senha;
+        foto.innerHTML = "<img src='./fotos/cliente_"+ obj[0].id +".jpg'>";
+    })
+    .fail(function(xhr, status, msg){
+        alert(msg);
+    });
+
+    
+}
+</script>
